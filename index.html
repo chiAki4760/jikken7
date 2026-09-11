@@ -1,0 +1,2697 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+  <title>ちいかわ風・人魚の島の秘密 // 簿記冒険帳</title>
+ 
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+ 
+    :root {
+      --sea-deep: #075985;
+      --sea: #0284c7;
+      --sea-light: #38bdf8;
+      --sky: #bae6fd;
+ 
+      --sand: #fff7d6;
+      --sand-dark: #f5d98a;
+ 
+      --coral: #fb7185;
+      --pink: #fda4af;
+ 
+      --bubble: rgba(255,255,255,0.75);
+ 
+      --text: #164e63;
+      --text-soft: #52788a;
+ 
+      --success: #16a34a;
+      --success-bg: #dcfce7;
+ 
+      --danger: #e11d48;
+      --danger-bg: #ffe4e6;
+ 
+      --card: rgba(255,255,255,0.92);
+      --border: rgba(14,116,144,0.25);
+ 
+      --shadow:
+        0 12px 30px rgba(7, 89, 133, 0.18);
+    }
+ 
+    html {
+      min-height: 100%;
+    }
+ 
+    body {
+      margin: 0;
+      min-height: 100vh;
+ 
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Hiragino Kaku Gothic ProN",
+        "Hiragino Sans",
+        "Yu Gothic",
+        "Meiryo",
+        sans-serif;
+ 
+      color: var(--text);
+ 
+      background:
+        radial-gradient(
+          circle at 15% 15%,
+          rgba(255,255,255,.85) 0 3px,
+          transparent 4px
+        ),
+        radial-gradient(
+          circle at 80% 30%,
+          rgba(255,255,255,.55) 0 4px,
+          transparent 5px
+        ),
+        linear-gradient(
+          180deg,
+          #bae6fd 0%,
+          #7dd3fc 22%,
+          #38bdf8 55%,
+          #0284c7 100%
+        );
+ 
+      padding: 18px;
+      overflow-x: hidden;
+    }
+ 
+    /* =========================
+       海中の泡
+    ========================== */
+ 
+    .bubble {
+      position: fixed;
+      bottom: -80px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.22);
+      border: 2px solid rgba(255,255,255,.38);
+      pointer-events: none;
+      animation: bubbleUp linear infinite;
+      z-index: 0;
+    }
+ 
+    .bubble:nth-child(1) {
+      left: 5%;
+      width: 28px;
+      height: 28px;
+      animation-duration: 11s;
+    }
+ 
+    .bubble:nth-child(2) {
+      left: 17%;
+      width: 12px;
+      height: 12px;
+      animation-duration: 7s;
+      animation-delay: 2s;
+    }
+ 
+    .bubble:nth-child(3) {
+      left: 32%;
+      width: 38px;
+      height: 38px;
+      animation-duration: 14s;
+      animation-delay: 1s;
+    }
+ 
+    .bubble:nth-child(4) {
+      left: 52%;
+      width: 18px;
+      height: 18px;
+      animation-duration: 8s;
+      animation-delay: 3s;
+    }
+ 
+    .bubble:nth-child(5) {
+      left: 72%;
+      width: 32px;
+      height: 32px;
+      animation-duration: 12s;
+      animation-delay: 4s;
+    }
+ 
+    .bubble:nth-child(6) {
+      left: 91%;
+      width: 15px;
+      height: 15px;
+      animation-duration: 9s;
+      animation-delay: 2s;
+    }
+ 
+    @keyframes bubbleUp {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+ 
+      10% {
+        opacity: .8;
+      }
+ 
+      50% {
+        transform: translateY(-50vh) translateX(25px);
+      }
+ 
+      100% {
+        transform: translateY(-115vh) translateX(-20px);
+        opacity: 0;
+      }
+    }
+ 
+    /* =========================
+       メインコンテナ
+    ========================== */
+ 
+    .container {
+      position: relative;
+      z-index: 2;
+ 
+      width: 100%;
+      max-width: 760px;
+ 
+      margin: 0 auto;
+ 
+      background: var(--card);
+ 
+      border: 3px solid rgba(255,255,255,.75);
+      border-radius: 28px;
+ 
+      padding: 22px;
+ 
+      box-shadow: var(--shadow);
+ 
+      overflow: hidden;
+    }
+ 
+    .container::before {
+      content: "";
+      position: absolute;
+      left: -20%;
+      right: -20%;
+      top: -65px;
+ 
+      height: 100px;
+ 
+      background: rgba(255,255,255,.35);
+ 
+      border-radius: 50%;
+ 
+      pointer-events: none;
+    }
+ 
+    /* =========================
+       ヘッダー
+    ========================== */
+ 
+    .header {
+      position: relative;
+ 
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+ 
+      padding: 6px 4px 18px;
+ 
+      border-bottom: 3px dashed rgba(14,116,144,.18);
+    }
+ 
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+ 
+    .island-icon {
+      width: 54px;
+      height: 54px;
+ 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+ 
+      background:
+        radial-gradient(
+          circle at 35% 30%,
+          #fff 0 8px,
+          transparent 9px
+        ),
+        linear-gradient(
+          160deg,
+          #fef3c7,
+          #fde68a
+        );
+ 
+      border: 3px solid #fff;
+      border-radius: 50%;
+ 
+      box-shadow:
+        0 4px 0 #f59e0b,
+        0 7px 15px rgba(245,158,11,.25);
+ 
+      font-size: 28px;
+    }
+ 
+    .header h1 {
+      margin: 0;
+ 
+      font-size: 1.08rem;
+      line-height: 1.35;
+ 
+      color: var(--sea-deep);
+ 
+      font-weight: 900;
+ 
+      letter-spacing: .5px;
+    }
+ 
+    .subtitle {
+      margin-top: 3px;
+ 
+      font-size: .72rem;
+      color: var(--text-soft);
+    }
+ 
+    .status-badge {
+      flex-shrink: 0;
+ 
+      padding: 7px 11px;
+ 
+      border-radius: 999px;
+ 
+      background: #dcfce7;
+      color: #15803d;
+ 
+      border: 2px solid #86efac;
+ 
+      font-size: .72rem;
+      font-weight: 800;
+ 
+      box-shadow: 0 3px 0 rgba(22,163,74,.18);
+    }
+ 
+    .status-badge.review {
+      background: #fef3c7;
+      color: #b45309;
+      border-color: #fcd34d;
+    }
+ 
+    /* =========================
+       探索ゲージ
+    ========================== */
+ 
+    .explore-bar {
+      margin: 18px 0;
+ 
+      padding: 12px 14px;
+ 
+      background: #ecfeff;
+ 
+      border: 2px solid #a5f3fc;
+      border-radius: 18px;
+    }
+ 
+    .explore-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+ 
+      margin-bottom: 7px;
+ 
+      font-size: .76rem;
+      font-weight: 800;
+    }
+ 
+    .progress-track {
+      width: 100%;
+      height: 12px;
+ 
+      background: #cffafe;
+ 
+      border-radius: 999px;
+ 
+      overflow: hidden;
+    }
+ 
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+ 
+      background:
+        linear-gradient(
+          90deg,
+          #22d3ee,
+          #0ea5e9,
+          #38bdf8
+        );
+ 
+      border-radius: 999px;
+ 
+      transition: width .6s ease;
+ 
+      box-shadow:
+        0 0 12px rgba(14,165,233,.45);
+    }
+ 
+    /* =========================
+       問題カード
+    ========================== */
+ 
+    .card {
+      position: relative;
+ 
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255,255,255,.98),
+          rgba(240,249,255,.96)
+        );
+ 
+      border: 2px solid var(--border);
+ 
+      border-radius: 20px;
+ 
+      padding: 18px;
+ 
+      margin-bottom: 16px;
+ 
+      box-shadow:
+        0 5px 15px rgba(7,89,133,.08);
+    }
+ 
+    .card::after {
+      content: "🫧";
+ 
+      position: absolute;
+ 
+      right: 13px;
+      top: 10px;
+ 
+      font-size: 22px;
+ 
+      opacity: .55;
+    }
+ 
+    .question-label {
+      display: inline-block;
+ 
+      padding: 5px 9px;
+ 
+      margin-bottom: 9px;
+ 
+      background: #e0f2fe;
+ 
+      color: #0369a1;
+ 
+      border-radius: 999px;
+ 
+      font-size: .73rem;
+      font-weight: 900;
+    }
+ 
+    .story-text {
+      margin: 0;
+ 
+      font-size: .96rem;
+      line-height: 1.8;
+ 
+      font-weight: 600;
+ 
+      color: #164e63;
+    }
+ 
+    /* =========================
+       小さな案内キャラクター
+    ========================== */
+ 
+    .guide {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+ 
+      margin: 12px 0 18px;
+ 
+      padding: 10px 13px;
+ 
+      background: #fff7ed;
+ 
+      border: 2px solid #fed7aa;
+ 
+      border-radius: 17px;
+ 
+      color: #9a3412;
+ 
+      font-size: .78rem;
+      font-weight: 700;
+    }
+ 
+    .guide-face {
+      width: 40px;
+      height: 40px;
+ 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+ 
+      flex-shrink: 0;
+ 
+      background: #fff;
+ 
+      border: 2px solid #fdba74;
+ 
+      border-radius: 50%;
+ 
+      font-size: 22px;
+ 
+      animation: floatFace 2.5s ease-in-out infinite;
+    }
+ 
+    @keyframes floatFace {
+      0%,100% {
+        transform: translateY(0);
+      }
+ 
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+ 
+    /* =========================
+       借方・貸方
+    ========================== */
+ 
+    .split-container {
+      display: grid;
+ 
+      grid-template-columns: 1fr 1fr;
+ 
+      gap: 14px;
+ 
+      width: 100%;
+ 
+      margin-bottom: 16px;
+    }
+ 
+    @media (max-width: 600px) {
+      .split-container {
+        grid-template-columns: 1fr;
+      }
+    }
+ 
+    .side-column {
+      background:
+        linear-gradient(
+          180deg,
+          #f0fdfa,
+          #ecfeff
+        );
+ 
+      border: 2px solid #99f6e4;
+ 
+      border-radius: 18px;
+ 
+      padding: 13px;
+ 
+      transition: transform .2s ease;
+    }
+ 
+    .side-column:hover {
+      transform: translateY(-2px);
+    }
+ 
+    .side-column.credit {
+      background:
+        linear-gradient(
+          180deg,
+          #fff7ed,
+          #fff1f2
+        );
+ 
+      border-color: #fed7aa;
+    }
+ 
+    .side-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+ 
+      margin-bottom: 10px;
+ 
+      font-size: .88rem;
+ 
+      color: #0f766e;
+ 
+      font-weight: 900;
+    }
+ 
+    .credit .side-title {
+      color: #be123c;
+    }
+ 
+    .entry-row {
+      display: flex;
+ 
+      gap: 6px;
+ 
+      margin-bottom: 8px;
+ 
+      align-items: center;
+ 
+      width: 100%;
+    }
+ 
+    .entry-row input[type="text"],
+    .entry-row input[type="number"] {
+      min-width: 0;
+ 
+      padding: 9px;
+ 
+      background: #fff;
+ 
+      border: 2px solid #bae6fd;
+ 
+      border-radius: 10px;
+ 
+      color: var(--text);
+ 
+      font-size: .9rem;
+ 
+      outline: none;
+ 
+      transition:
+        border-color .2s,
+        box-shadow .2s;
+    }
+ 
+    .entry-row input[type="text"] {
+      flex: 1.2;
+      width: 0;
+    }
+ 
+    .entry-row input[type="number"] {
+      flex: 1;
+      width: 0;
+    }
+ 
+    .entry-row input:focus {
+      border-color: #38bdf8;
+ 
+      box-shadow:
+        0 0 0 3px rgba(56,189,248,.16);
+    }
+ 
+    .btn-remove {
+      background: #ffe4e6;
+ 
+      border: 2px solid #fda4af;
+ 
+      color: #be123c;
+ 
+      font-size: .82rem;
+ 
+      cursor: pointer;
+ 
+      padding: 7px 8px;
+ 
+      border-radius: 9px;
+ 
+      transition: transform .15s;
+    }
+ 
+    .btn-remove:hover {
+      transform: scale(1.08);
+    }
+ 
+    .btn-add {
+      width: 100%;
+ 
+      background: rgba(255,255,255,.8);
+ 
+      border: 2px dashed #67e8f9;
+ 
+      border-radius: 11px;
+ 
+      padding: 7px;
+ 
+      font-size: .78rem;
+ 
+      cursor: pointer;
+ 
+      color: #0e7490;
+ 
+      font-weight: 800;
+    }
+ 
+    .btn-add:hover {
+      background: #fff;
+    }
+ 
+    /* =========================
+       メインボタン
+    ========================== */
+ 
+    .btn-submit {
+      position: relative;
+ 
+      width: 100%;
+ 
+      background:
+        linear-gradient(
+          180deg,
+          #38bdf8,
+          #0284c7
+        );
+ 
+      color: #fff;
+ 
+      border: 0;
+ 
+      border-radius: 15px;
+ 
+      padding: 14px;
+ 
+      font-size: .98rem;
+ 
+      font-weight: 900;
+ 
+      cursor: pointer;
+ 
+      box-shadow:
+        0 5px 0 #075985,
+        0 9px 18px rgba(2,132,199,.22);
+ 
+      transition:
+        transform .15s,
+        box-shadow .15s;
+    }
+ 
+    .btn-submit:hover {
+      transform: translateY(-2px);
+ 
+      box-shadow:
+        0 7px 0 #075985,
+        0 12px 22px rgba(2,132,199,.25);
+    }
+ 
+    .btn-submit:active {
+      transform: translateY(3px);
+ 
+      box-shadow:
+        0 2px 0 #075985;
+    }
+ 
+    /* =========================
+       結果表示
+    ========================== */
+ 
+    .result-box {
+      margin-top: 18px;
+ 
+      padding: 15px;
+ 
+      border-radius: 17px;
+ 
+      display: none;
+ 
+      font-size: .88rem;
+ 
+      line-height: 1.75;
+ 
+      animation: resultAppear .35s ease;
+    }
+ 
+    @keyframes resultAppear {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+ 
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+ 
+    .result-box.correct {
+      background:
+        linear-gradient(
+          135deg,
+          #ecfdf5,
+          #dcfce7
+        );
+ 
+      border: 2px solid #86efac;
+ 
+      color: #166534;
+ 
+      box-shadow:
+        0 5px 18px rgba(34,197,94,.15);
+    }
+ 
+    .result-box.wrong {
+      background:
+        linear-gradient(
+          135deg,
+          #fff1f2,
+          #ffe4e6
+        );
+ 
+      border: 2px solid #fda4af;
+ 
+      color: #9f1239;
+    }
+ 
+    /* =========================
+       ナビゲーション
+    ========================== */
+ 
+    .nav-buttons {
+      display: flex;
+ 
+      justify-content: space-between;
+ 
+      gap: 10px;
+ 
+      margin-top: 18px;
+    }
+ 
+    .nav-btn {
+      flex: 1;
+ 
+      background: #0e7490;
+ 
+      color: #fff;
+ 
+      border: 0;
+ 
+      border-radius: 12px;
+ 
+      padding: 10px 14px;
+ 
+      cursor: pointer;
+ 
+      font-weight: 800;
+ 
+      box-shadow: 0 3px 0 #164e63;
+ 
+      transition: transform .15s;
+    }
+ 
+    .nav-btn:hover {
+      transform: translateY(-2px);
+    }
+ 
+    /* =========================
+       完了画面
+    ========================== */
+ 
+    .clear-card {
+      text-align: center;
+ 
+      padding: 28px 18px;
+ 
+      display: none;
+    }
+ 
+    .treasure {
+      font-size: 60px;
+ 
+      animation:
+        treasureFloat 2s ease-in-out infinite;
+    }
+ 
+    @keyframes treasureFloat {
+      0%,100% {
+        transform: translateY(0) rotate(-3deg);
+      }
+ 
+      50% {
+        transform: translateY(-9px) rotate(3deg);
+      }
+    }
+ 
+    .badge-complete {
+      display: inline-block;
+ 
+      background:
+        linear-gradient(
+          135deg,
+          #fef3c7,
+          #fde68a
+        );
+ 
+      color: #92400e;
+ 
+      border: 3px solid #fbbf24;
+ 
+      padding: 9px 17px;
+ 
+      border-radius: 9999px;
+ 
+      font-size: 1.02rem;
+ 
+      font-weight: 900;
+ 
+      margin: 8px 0 18px;
+ 
+      box-shadow:
+        0 4px 0 #d97706;
+    }
+ 
+    .btn-review,
+    .btn-restart {
+      width: 100%;
+ 
+      border: 0;
+ 
+      border-radius: 14px;
+ 
+      padding: 13px;
+ 
+      font-size: .94rem;
+ 
+      font-weight: 900;
+ 
+      cursor: pointer;
+ 
+      margin-bottom: 10px;
+    }
+ 
+    .btn-review {
+      background:
+        linear-gradient(
+          180deg,
+          #fb923c,
+          #ea580c
+        );
+ 
+      color: #fff;
+ 
+      box-shadow: 0 4px 0 #9a3412;
+    }
+ 
+    .btn-restart {
+      background:
+        linear-gradient(
+          180deg,
+          #38bdf8,
+          #0284c7
+        );
+ 
+      color: #fff;
+ 
+      box-shadow: 0 4px 0 #075985;
+    }
+ 
+    /* =========================
+       JSONエリア
+    ========================== */
+ 
+    details {
+      margin-top: 24px;
+ 
+      border-top: 2px dashed #bae6fd;
+ 
+      padding-top: 14px;
+    }
+ 
+    summary {
+      cursor: pointer;
+ 
+      font-size: .8rem;
+ 
+      color: #0e7490;
+ 
+      font-weight: 800;
+    }
+ 
+    textarea {
+      width: 100%;
+ 
+      height: 110px;
+ 
+      margin-top: 12px;
+ 
+      border: 2px solid #bae6fd;
+ 
+      border-radius: 12px;
+ 
+      padding: 10px;
+ 
+      font-size: .8rem;
+ 
+      box-sizing: border-box;
+ 
+      resize: vertical;
+ 
+      outline: none;
+    }
+ 
+    textarea:focus {
+      border-color: #38bdf8;
+    }
+ 
+    /* =========================
+       キラキラ演出
+    ========================== */
+ 
+    .sparkle {
+      position: fixed;
+ 
+      pointer-events: none;
+ 
+      z-index: 99;
+ 
+      font-size: 24px;
+ 
+      animation: sparkleAnimation 1.2s ease-out forwards;
+    }
+ 
+    @keyframes sparkleAnimation {
+      0% {
+        transform:
+          translate(0,0)
+          scale(.4)
+          rotate(0);
+ 
+        opacity: 0;
+      }
+ 
+      20% {
+        opacity: 1;
+      }
+ 
+      100% {
+        transform:
+          translate(
+            var(--x),
+            var(--y)
+          )
+          scale(1.4)
+          rotate(180deg);
+ 
+        opacity: 0;
+      }
+    }
+ 
+    /* =========================
+       不正解時の揺れ
+    ========================== */
+ 
+    .shake {
+      animation: shake .45s ease;
+    }
+ 
+    @keyframes shake {
+      0%,100% {
+        transform: translateX(0);
+      }
+ 
+      20% {
+        transform: translateX(-7px);
+      }
+ 
+      40% {
+        transform: translateX(7px);
+      }
+ 
+      60% {
+        transform: translateX(-5px);
+      }
+ 
+      80% {
+        transform: translateX(5px);
+      }
+    }
+ 
+    /* =========================
+       スマホ
+    ========================== */
+ 
+    @media (max-width: 520px) {
+ 
+      body {
+        padding: 8px;
+      }
+ 
+      .container {
+        padding: 14px;
+ 
+        border-radius: 22px;
+      }
+ 
+      .header h1 {
+        font-size: .9rem;
+      }
+ 
+      .subtitle {
+        font-size: .65rem;
+      }
+ 
+      .island-icon {
+        width: 44px;
+        height: 44px;
+ 
+        font-size: 23px;
+      }
+ 
+      .status-badge {
+        font-size: .62rem;
+        padding: 5px 7px;
+      }
+ 
+      .story-text {
+        font-size: .9rem;
+      }
+ 
+      .nav-buttons {
+        flex-direction: column;
+      }
+ 
+      .nav-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+ 
+<body>
+ 
+  <!-- 海の泡 -->
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+ 
+  <div class="container">
+ 
+    <!-- =========================
+         ヘッダー
+    ========================== -->
+ 
+    <div class="header">
+ 
+      <div class="logo-area">
+ 
+        <div class="island-icon">
+          🏝️
+        </div>
+ 
+        <div>
+          <h1>
+            人魚の島のひみつ
+            <br>
+            簿記ぼうけん帳
+          </h1>
+ 
+          <div class="subtitle">
+            〜 海の向こうにある秘密を解き明かそう 〜
+          </div>
+        </div>
+ 
+      </div>
+ 
+      <span
+        class="status-badge"
+        id="status-tag"
+      >
+        🌊 探索中
+      </span>
+ 
+    </div>
+ 
+    <!-- =========================
+         探索ゲージ
+    ========================== -->
+ 
+    <div class="explore-bar">
+ 
+      <div class="explore-info">
+ 
+        <span>
+          🐚 島の探索度
+        </span>
+ 
+        <span id="progress-text">
+          0%
+        </span>
+ 
+      </div>
+ 
+      <div class="progress-track">
+        <div
+          class="progress-fill"
+          id="progress-fill"
+        ></div>
+      </div>
+ 
+    </div>
+ 
+    <!-- =========================
+         クイズ
+    ========================== -->
+ 
+    <div id="quiz-area">
+ 
+      <div class="card">
+ 
+        <div
+          class="question-label"
+          id="q-number"
+        >
+          🐠 島の試練 // 01
+        </div>
+ 
+        <p
+          class="story-text"
+          id="story-display"
+        >
+          読み込み中...
+        </p>
+ 
+      </div>
+ 
+      <div class="guide">
+ 
+        <div class="guide-face">
+          🐟
+        </div>
+ 
+        <div>
+          島の宝箱を開けるには、
+          <br>
+          正しい仕訳を完成させよう！
+        </div>
+ 
+      </div>
+ 
+      <!-- 借方・貸方 -->
+ 
+      <div class="split-container">
+ 
+        <div class="side-column">
+ 
+          <div class="side-title">
+            🐚 借方（Debit）
+          </div>
+ 
+          <div id="debit-rows"></div>
+ 
+          <button
+            type="button"
+            class="btn-add"
+            onclick="addRow('debit')"
+          >
+            ＋ もう1行追加する
+          </button>
+ 
+        </div>
+ 
+        <div class="side-column credit">
+ 
+          <div class="side-title">
+            🐠 貸方（Credit）
+          </div>
+ 
+          <div id="credit-rows"></div>
+ 
+          <button
+            type="button"
+            class="btn-add"
+            onclick="addRow('credit')"
+          >
+            ＋ もう1行追加する
+          </button>
+ 
+        </div>
+ 
+      </div>
+ 
+      <button
+        type="button"
+        class="btn-submit"
+        id="submit-btn"
+        onclick="checkAnswer()"
+      >
+        ✨ 仕訳を完成させる！
+      </button>
+ 
+      <div
+        id="result-display"
+        class="result-box"
+      ></div>
+ 
+      <div class="nav-buttons">
+ 
+        <button
+          type="button"
+          class="nav-btn"
+          onclick="prevQuestion()"
+        >
+          🐚 前の島へ
+        </button>
+ 
+        <button
+          type="button"
+          class="nav-btn"
+          id="next-btn"
+          onclick="nextQuestion()"
+        >
+          次の島へ 🐠
+        </button>
+ 
+      </div>
+ 
+    </div>
+ 
+    <!-- =========================
+         完了画面
+    ========================== -->
+ 
+    <div
+      id="clear-area"
+      class="clear-card card"
+    >
+ 
+      <div class="treasure">
+        🏝️✨
+      </div>
+ 
+      <h2>
+        人魚の島を攻略した！
+      </h2>
+ 
+      <div id="complete-badge-area"></div>
+ 
+      <p
+        id="score-text"
+        style="
+          line-height:1.8;
+          color:var(--text-soft);
+        "
+      ></p>
+ 
+      <div id="review-btn-area"></div>
+ 
+      <button
+        type="button"
+        class="btn-restart"
+        onclick="startFreshQuiz()"
+      >
+        🌊 もう一度、島を冒険する
+      </button>
+ 
+    </div>
+ 
+    <!-- =========================
+         JSON読み込み
+    ========================== -->
+ 
+    <details>
+ 
+      <summary>
+        🐚 新しい「島の試練」データを読み込む
+      </summary>
+ 
+      <textarea
+        id="json-input"
+        placeholder="JSONコードを貼り付けてください"
+      ></textarea>
+ 
+      <button
+        type="button"
+        class="btn-submit"
+        style="
+          background:linear-gradient(
+            180deg,
+            #34d399,
+            #059669
+          );
+          box-shadow:0 5px 0 #047857;
+          margin-top:8px;
+        "
+        onclick="loadCustomData()"
+      >
+        🗝️ 秘密の問題データを読み込む
+      </button>
+ 
+    </details>
+ 
+  </div>
+ 
+ 
+<script>
+ 
+/* =========================================================
+   人魚の島の秘密
+   簿記冒険データ
+========================================================= */
+ 
+const defaultData = [
+ 
+  {
+    "story":
+      "海辺の小さな村に、みんなで使う冒険のお店を開くことになった。代表の子が自分のお金、500,000円を元入れした。",
+    "debit": [
+      {
+        "account": "現金",
+        "amount": 500000
+      }
+    ],
+    "credit": [
+      {
+        "account": "資本金",
+        "amount": 500000
+      }
+    ],
+    "explanation":
+      "現金は資産なので、増加したときは借方です。元入れによって資本金が増加するため、貸方に資本金を記帳します。"
+  },
+ 
+  {
+    "story":
+      "島の海辺にある小さなお店の家賃70,000円を、現金で支払った。これで雨の日も安心してみんなで集まれる。",
+    "debit": [
+      {
+        "account": "支払家賃",
+        "amount": 70000
+      }
+    ],
+    "credit": [
+      {
+        "account": "現金",
+        "amount": 70000
+      }
+    ],
+    "explanation":
+      "支払家賃は費用なので借方。現金という資産が減少するので貸方に記帳します。"
+  },
+ 
+  {
+    "story":
+      "海底の洞窟を調べるための特別な探索機械（備品）200,000円を購入し、普通預金から支払った。",
+    "debit": [
+      {
+        "account": "備品",
+        "amount": 200000
+      }
+    ],
+    "credit": [
+      {
+        "account": "普通預金",
+        "amount": 200000
+      }
+    ],
+    "explanation":
+      "探索機械は備品という資産です。備品の増加を借方、普通預金の減少を貸方に記帳します。"
+  },
+ 
+  {
+    "story":
+      "島のお店で販売する貝がらのアクセサリーを90,000円分仕入れた。代金は後日支払うことにした。",
+    "debit": [
+      {
+        "account": "仕入",
+        "amount": 90000
+      }
+    ],
+    "credit": [
+      {
+        "account": "買掛金",
+        "amount": 90000
+      }
+    ],
+    "explanation":
+      "商品を仕入れたので仕入を借方に記帳します。後日支払う義務が発生するため、買掛金を貸方に記帳します。"
+  },
+ 
+  {
+    "story":
+      "旅人のお客さんに、海の宝石セット140,000円を販売した。代金は後日受け取ることになった。",
+    "debit": [
+      {
+        "account": "売掛金",
+        "amount": 140000
+      }
+    ],
+    "credit": [
+      {
+        "account": "売上",
+        "amount": 140000
+      }
+    ],
+    "explanation":
+      "後から代金を受け取る権利なので売掛金を借方。商品を販売した収益なので売上を貸方に記帳します。"
+  },
+ 
+  {
+    "story":
+      "先月販売した商品の代金60,000円が、海辺のお店の当座預金口座へ振り込まれた。",
+    "debit": [
+      {
+        "account": "当座預金",
+        "amount": 60000
+      }
+    ],
+    "credit": [
+      {
+        "account": "売掛金",
+        "amount": 60000
+      }
+    ],
+    "explanation":
+      "当座預金という資産が増えるので借方。回収によって売掛金という資産が減るため貸方です。"
+  },
+ 
+  {
+    "story":
+      "島の仕入れ先に対する買掛金50,000円を支払うため、小切手を振り出した。",
+    "debit": [
+      {
+        "account": "買掛金",
+        "amount": 50000
+      }
+    ],
+    "credit": [
+      {
+        "account": "当座預金",
+        "amount": 50000
+      }
+    ],
+    "explanation":
+      "買掛金という負債が減少するので借方。当座預金が減少するので貸方に記帳します。"
+  },
+ 
+  {
+    "story":
+      "島を訪れた仲間から、宝箱の整理を手伝ってほしいと頼まれた。お礼として30,000円を現金でもらった。",
+    "debit": [
+      {
+        "account": "現金",
+        "amount": 30000
+      }
+    ],
+    "credit": [
+      {
+        "account": "受取手数料",
+        "amount": 30000
+      }
+    ],
+    "explanation":
+      "現金という資産が増加するため借方。サービスの対価として受取手数料という収益が発生するため貸方です。"
+  },
+ 
+  {
+    "story":
+      "手元にあった現金120,000円を、安全な海辺の銀行の普通預金口座へ預け入れた。",
+    "debit": [
+      {
+        "account": "普通預金",
+        "amount": 120000
+      }
+    ],
+    "credit": [
+      {
+        "account": "現金",
+        "amount": 120000
+      }
+    ],
+    "explanation":
+      "普通預金が増加するので借方。手元の現金が減少するので貸方に記帳します。"
+  },
+ 
+  {
+    "story":
+      "島の大切な宝箱を守るための保管料として、現金10,000円を支払った。",
+    "debit": [
+      {
+        "account": "支払手数料",
+        "amount": 10000
+      }
+    ],
+    "credit": [
+      {
+        "account": "現金",
+        "amount": 10000
+      }
+    ],
+    "explanation":
+      "手数料という費用が発生したので借方。現金という資産が減少したので貸方です。"
+  }
+ 
+];
+ 
+ 
+/* =========================================================
+   状態
+========================================================= */
+ 
+let baseQuestions = [];
+ 
+let currentQuestions = [];
+ 
+let currentIndex = 0;
+ 
+let correctCount = 0;
+ 
+let wrongList = [];
+ 
+let answeredSet = new Set();
+ 
+let isReviewMode = false;
+ 
+ 
+/* =========================================================
+   初期化
+========================================================= */
+ 
+function init() {
+ 
+  const saved =
+    localStorage.getItem(
+      "mermaid_island_boki_data"
+    );
+ 
+  if (saved) {
+ 
+    try {
+ 
+      baseQuestions = JSON.parse(saved);
+ 
+    } catch (e) {
+ 
+      baseQuestions = defaultData;
+ 
+    }
+ 
+  } else {
+ 
+    baseQuestions = defaultData;
+ 
+  }
+ 
+ 
+  const savedIdx =
+    localStorage.getItem(
+      "mermaid_island_current_idx"
+    );
+ 
+  const savedCorrect =
+    localStorage.getItem(
+      "mermaid_island_correct_cnt"
+    );
+ 
+  const savedWrongs =
+    localStorage.getItem(
+      "mermaid_island_wrong_list"
+    );
+ 
+  const savedReview =
+    localStorage.getItem(
+      "mermaid_island_is_review"
+    );
+ 
+ 
+  isReviewMode =
+    savedReview === "true";
+ 
+  wrongList =
+    savedWrongs
+      ? JSON.parse(savedWrongs)
+      : [];
+ 
+  currentQuestions =
+    isReviewMode
+      ? [...wrongList]
+      : [...baseQuestions];
+ 
+  correctCount =
+    savedCorrect
+      ? parseInt(savedCorrect, 10)
+      : 0;
+ 
+  currentIndex =
+    savedIdx
+      ? parseInt(savedIdx, 10)
+      : 0;
+ 
+ 
+  if (
+    currentIndex >= currentQuestions.length &&
+    currentQuestions.length > 0
+  ) {
+ 
+    showClearScreen();
+ 
+  } else {
+ 
+    document.getElementById(
+      "quiz-area"
+    ).style.display = "block";
+ 
+    document.getElementById(
+      "clear-area"
+    ).style.display = "none";
+ 
+    loadQuestion(currentIndex);
+ 
+  }
+ 
+}
+ 
+ 
+/* =========================================================
+   行生成
+========================================================= */
+ 
+function createRowHTML(
+  account = "",
+  amount = ""
+) {
+ 
+  const div =
+    document.createElement("div");
+ 
+  div.className = "entry-row";
+ 
+  div.innerHTML = `
+ 
+    <input
+      type="text"
+      placeholder="科目"
+      value="${account}"
+      lang="ja"
+    >
+ 
+    <input
+      type="number"
+      placeholder="金額"
+      value="${amount}"
+    >
+ 
+    <button
+      type="button"
+      class="btn-remove"
+      onclick="removeRow(this)"
+    >
+      ✕
+    </button>
+ 
+  `;
+ 
+  return div;
+}
+ 
+ 
+/* =========================================================
+   行追加
+========================================================= */
+ 
+function addRow(side) {
+ 
+  document
+    .getElementById(`${side}-rows`)
+    .appendChild(
+      createRowHTML("", "")
+    );
+ 
+}
+ 
+ 
+/* =========================================================
+   行削除
+========================================================= */
+ 
+function removeRow(btn) {
+ 
+  const row =
+    btn.closest(".entry-row");
+ 
+  if (
+    row.parentElement.children.length > 1
+  ) {
+ 
+    row.remove();
+ 
+  } else {
+ 
+    alert(
+      "🐚 最低1行は残しておこう！"
+    );
+ 
+  }
+ 
+}
+ 
+ 
+/* =========================================================
+   問題読み込み
+========================================================= */
+ 
+function loadQuestion(index) {
+ 
+  if (
+    index < 0 ||
+    index >= currentQuestions.length
+  ) {
+ 
+    return;
+ 
+  }
+ 
+ 
+  currentIndex = index;
+ 
+ 
+  localStorage.setItem(
+    "mermaid_island_current_idx",
+    currentIndex
+  );
+ 
+  localStorage.setItem(
+    "mermaid_island_correct_cnt",
+    correctCount
+  );
+ 
+  localStorage.setItem(
+    "mermaid_island_wrong_list",
+    JSON.stringify(wrongList)
+  );
+ 
+  localStorage.setItem(
+    "mermaid_island_is_review",
+    isReviewMode
+  );
+ 
+ 
+  const statusTag =
+    document.getElementById(
+      "status-tag"
+    );
+ 
+ 
+  if (isReviewMode) {
+ 
+    statusTag.textContent =
+      "🔄 復習モード";
+ 
+    statusTag.className =
+      "status-badge review";
+ 
+  } else {
+ 
+    statusTag.textContent =
+      "🌊 探索中";
+ 
+    statusTag.className =
+      "status-badge";
+ 
+  }
+ 
+ 
+  const modePrefix =
+    isReviewMode
+      ? "🔄 復習の試練"
+      : "🐠 島の試練";
+ 
+ 
+  document.getElementById(
+    "q-number"
+  ).textContent =
+    `${modePrefix} // ${String(index + 1).padStart(2,"0")} / ${currentQuestions.length}`;
+ 
+ 
+  document.getElementById(
+    "story-display"
+  ).textContent =
+    currentQuestions[index].story;
+ 
+ 
+  document.getElementById(
+    "debit-rows"
+  ).innerHTML = "";
+ 
+  document.getElementById(
+    "credit-rows"
+  ).innerHTML = "";
+ 
+ 
+  addRow("debit");
+ 
+  addRow("credit");
+ 
+ 
+  const res =
+    document.getElementById(
+      "result-display"
+    );
+ 
+  res.style.display = "none";
+ 
+  res.className =
+    "result-box";
+ 
+ 
+  document.getElementById(
+    "submit-btn"
+  ).style.display = "block";
+ 
+ 
+  const nextBtn =
+    document.getElementById(
+      "next-btn"
+    );
+ 
+ 
+  nextBtn.textContent =
+    currentIndex === currentQuestions.length - 1
+      ? "秘密の答えを見る ✨"
+      : "次の試練へ 🐠";
+ 
+ 
+  updateProgress();
+ 
+}
+ 
+ 
+/* =========================================================
+   入力データ取得
+========================================================= */
+ 
+function getEntries(side) {
+ 
+  const rows =
+    document.getElementById(
+      `${side}-rows`
+    ).children;
+ 
+ 
+  const entries = [];
+ 
+ 
+  for (let row of rows) {
+ 
+    const inputs =
+      row.querySelectorAll("input");
+ 
+    const account =
+      inputs[0].value.trim();
+ 
+    const amount =
+      parseInt(
+        inputs[1].value,
+        10
+      );
+ 
+ 
+    if (
+      account &&
+      !isNaN(amount)
+    ) {
+ 
+      entries.push({
+        account,
+        amount
+      });
+ 
+    }
+ 
+  }
+ 
+ 
+  return entries;
+ 
+}
+ 
+ 
+/* =========================================================
+   正解判定
+========================================================= */
+ 
+function checkAnswer() {
+ 
+  const q =
+    currentQuestions[currentIndex];
+ 
+ 
+  const userDebit =
+    getEntries("debit");
+ 
+  const userCredit =
+    getEntries("credit");
+ 
+ 
+  const normalizeData =
+    (sideData) => {
+ 
+      if (!sideData) {
+        return [];
+      }
+ 
+      if (Array.isArray(sideData)) {
+        return sideData;
+      }
+ 
+      return [sideData];
+ 
+    };
+ 
+ 
+  const correctDebit =
+    normalizeData(q.debit);
+ 
+  const correctCredit =
+    normalizeData(q.credit);
+ 
+ 
+  const matchSide =
+    (u, c) => {
+ 
+      if (u.length !== c.length) {
+        return false;
+      }
+ 
+ 
+      const sU =
+        [...u].sort(
+          (a,b) =>
+            a.account.localeCompare(
+              b.account
+            ) ||
+            a.amount - b.amount
+        );
+ 
+ 
+      const sC =
+        [...c].sort(
+          (a,b) =>
+            a.account.localeCompare(
+              b.account
+            ) ||
+            a.amount - b.amount
+        );
+ 
+ 
+      return sU.every(
+        (v, i) =>
+          v.account === sC[i].account &&
+          v.amount === sC[i].amount
+      );
+ 
+    };
+ 
+ 
+  const isOk =
+    matchSide(
+      userDebit,
+      correctDebit
+    ) &&
+    matchSide(
+      userCredit,
+      correctCredit
+    );
+ 
+ 
+  const res =
+    document.getElementById(
+      "result-display"
+    );
+ 
+ 
+  res.style.display = "block";
+ 
+ 
+  if (isOk) {
+ 
+    /* =====================
+       正解演出
+    ====================== */
+ 
+    res.className =
+      "result-box correct";
+ 
+ 
+    res.innerHTML = `
+ 
+      <strong>
+        ✨ わぁ……！正解！
+      </strong>
+ 
+      <br>
+ 
+      🐚 仕訳の宝石がキラキラ輝いた！
+ 
+      <br><br>
+ 
+      【島のひみつ】
+ 
+      <br>
+ 
+      ${q.explanation}
+ 
+    `;
+ 
+ 
+    createSparkles();
+ 
+ 
+    if (
+      !answeredSet.has(currentIndex)
+    ) {
+ 
+      correctCount++;
+ 
+ 
+      if (isReviewMode) {
+ 
+        wrongList =
+          wrongList.filter(
+            item =>
+              item.story !== q.story
+          );
+ 
+      }
+ 
+ 
+      answeredSet.add(
+        currentIndex
+      );
+ 
+    }
+ 
+ 
+  } else {
+ 
+    /* =====================
+       不正解演出
+    ====================== */
+ 
+    res.className =
+      "result-box wrong";
+ 
+ 
+    const dStr =
+      correctDebit
+        .map(
+          d =>
+            `（${d.account}: ${d.amount.toLocaleString()}円）`
+        )
+        .join(" ");
+ 
+ 
+    const cStr =
+      correctCredit
+        .map(
+          c =>
+            `（${c.account}: ${c.amount.toLocaleString()}円）`
+        )
+        .join(" ");
+ 
+ 
+    res.innerHTML = `
+ 
+      <strong>
+        🫧 あれれ……仕訳がちがうみたい！
+      </strong>
+ 
+      <br>
+ 
+      もう一度、海の中をよく見てみよう。
+ 
+      <br><br>
+ 
+      【正解の仕訳】
+ 
+      <br>
+ 
+      🐚 借方:
+      ${dStr}
+ 
+      <br>
+ 
+      🐠 貸方:
+      ${cStr}
+ 
+      <br><br>
+ 
+      【ひみつの解説】
+ 
+      <br>
+ 
+      ${q.explanation}
+ 
+    `;
+ 
+ 
+    document
+      .getElementById("quiz-area")
+      .classList.remove("shake");
+ 
+    void document
+      .getElementById("quiz-area")
+      .offsetWidth;
+ 
+    document
+      .getElementById("quiz-area")
+      .classList.add("shake");
+ 
+ 
+    if (
+      !answeredSet.has(currentIndex)
+    ) {
+ 
+      if (
+        !wrongList.some(
+          item =>
+            item.story === q.story
+        )
+      ) {
+ 
+        wrongList.push(q);
+ 
+      }
+ 
+      answeredSet.add(
+        currentIndex
+      );
+ 
+    }
+ 
+  }
+ 
+ 
+  localStorage.setItem(
+    "mermaid_island_correct_cnt",
+    correctCount
+  );
+ 
+  localStorage.setItem(
+    "mermaid_island_wrong_list",
+    JSON.stringify(wrongList)
+  );
+ 
+ 
+  updateProgress();
+ 
+}
+ 
+ 
+/* =========================================================
+   キラキラ演出
+========================================================= */
+ 
+function createSparkles() {
+ 
+  const symbols = [
+    "✨",
+    "🫧",
+    "⭐",
+    "🐚",
+    "💎"
+  ];
+ 
+ 
+  for (
+    let i = 0;
+    i < 18;
+    i++
+  ) {
+ 
+    const sparkle =
+      document.createElement(
+        "div"
+      );
+ 
+ 
+    sparkle.className =
+      "sparkle";
+ 
+ 
+    sparkle.textContent =
+      symbols[
+        Math.floor(
+          Math.random() *
+          symbols.length
+        )
+      ];
+ 
+ 
+    sparkle.style.left =
+      (40 + Math.random() * 20) +
+      "%";
+ 
+ 
+    sparkle.style.top =
+      (35 + Math.random() * 25) +
+      "%";
+ 
+ 
+    sparkle.style.setProperty(
+      "--x",
+      (
+        Math.random() * 260 -
+        130
+      ) + "px"
+    );
+ 
+ 
+    sparkle.style.setProperty(
+      "--y",
+      (
+        Math.random() * -220 -
+        40
+      ) + "px"
+    );
+ 
+ 
+    document.body.appendChild(
+      sparkle
+    );
+ 
+ 
+    setTimeout(
+      () => sparkle.remove(),
+      1300
+    );
+ 
+  }
+ 
+}
+ 
+ 
+/* =========================================================
+   前の問題
+========================================================= */
+ 
+function prevQuestion() {
+ 
+  if (currentIndex > 0) {
+ 
+    loadQuestion(
+      currentIndex - 1
+    );
+ 
+  }
+ 
+}
+ 
+ 
+/* =========================================================
+   次の問題
+========================================================= */
+ 
+function nextQuestion() {
+ 
+  if (
+    currentIndex <
+    currentQuestions.length - 1
+  ) {
+ 
+    loadQuestion(
+      currentIndex + 1
+    );
+ 
+  } else {
+ 
+    showClearScreen();
+ 
+  }
+ 
+}
+ 
+ 
+/* =========================================================
+   探索ゲージ
+========================================================= */
+ 
+function updateProgress() {
+ 
+  if (
+    currentQuestions.length === 0
+  ) {
+    return;
+  }
+ 
+ 
+  const percent =
+    Math.round(
+      (currentIndex /
+        currentQuestions.length) *
+        100
+    );
+ 
+ 
+  document.getElementById(
+    "progress-fill"
+  ).style.width =
+    percent + "%";
+ 
+ 
+  document.getElementById(
+    "progress-text"
+  ).textContent =
+    percent + "%";
+ 
+}
+ 
+ 
+/* =========================================================
+   完了画面
+========================================================= */
+ 
+function showClearScreen() {
+ 
+  document.getElementById(
+    "quiz-area"
+  ).style.display =
+    "none";
+ 
+ 
+  const clearArea =
+    document.getElementById(
+      "clear-area"
+    );
+ 
+ 
+  clearArea.style.display =
+    "block";
+ 
+ 
+  const total =
+    currentQuestions.length;
+ 
+ 
+  const badgeArea =
+    document.getElementById(
+      "complete-badge-area"
+    );
+ 
+ 
+  const scoreText =
+    document.getElementById(
+      "score-text"
+    );
+ 
+ 
+  const reviewBtnArea =
+    document.getElementById(
+      "review-btn-area"
+    );
+ 
+ 
+  badgeArea.innerHTML = "";
+ 
+  reviewBtnArea.innerHTML = "";
+ 
+ 
+  if (
+    wrongList.length === 0
+  ) {
+ 
+    localStorage.setItem(
+      "mermaid_island_master_completed",
+      "true"
+    );
+ 
+ 
+    badgeArea.innerHTML = `
+ 
+      <div class="badge-complete">
+        🏆 人魚の島のひみつを解き明かした！
+      </div>
+ 
+    `;
+ 
+ 
+    scoreText.innerHTML = `
+ 
+      🌊 冒険おつかれさまでした！
+ 
+      <br>
+ 
+      <strong>
+        ${total}問中 ${correctCount}問 正解
+      </strong>
+ 
+      <br><br>
+ 
+      すべての仕訳をクリアしました。
+ 
+      <br>
+ 
+      島の奥に眠っていた宝箱が、
+      ゆっくりと開いていきます……✨
+ 
+    `;
+ 
+ 
+    createSparkles();
+ 
+ 
+  } else {
+ 
+    scoreText.innerHTML = `
+ 
+      🐚 今回の冒険が終了しました。
+ 
+      <br>
+ 
+      <strong>
+        ${total}問中 ${correctCount}問 正解
+      </strong>
+ 
+      <br><br>
+ 
+      まだ
+ 
+      <strong>
+        ${wrongList.length}問
+      </strong>
+ 
+      の仕訳が、
+      海の底に残っています。
+ 
+      <br>
+ 
+      もう一度挑戦してみよう！
+ 
+    `;
+ 
+ 
+    const revBtn =
+      document.createElement(
+        "button"
+      );
+ 
+ 
+    revBtn.className =
+      "btn-review";
+ 
+ 
+    revBtn.textContent =
+      `🔄 間違えた試練だけ復習する（${wrongList.length}問）`;
+ 
+ 
+    revBtn.onclick =
+      startReviewMode;
+ 
+ 
+    reviewBtnArea.appendChild(
+      revBtn
+    );
+ 
+  }
+ 
+ 
+  localStorage.setItem(
+    "mermaid_island_current_idx",
+    currentQuestions.length
+  );
+ 
+}
+ 
+ 
+/* =========================================================
+   復習モード
+========================================================= */
+ 
+function startReviewMode() {
+ 
+  isReviewMode = true;
+ 
+  currentQuestions =
+    [...wrongList];
+ 
+  currentIndex = 0;
+ 
+  correctCount = 0;
+ 
+  answeredSet.clear();
+ 
+ 
+  document.getElementById(
+    "quiz-area"
+  ).style.display =
+    "block";
+ 
+ 
+  document.getElementById(
+    "clear-area"
+  ).style.display =
+    "none";
+ 
+ 
+  loadQuestion(0);
+ 
+}
+ 
+ 
+/* =========================================================
+   最初から
+========================================================= */
+ 
+function startFreshQuiz() {
+ 
+  clearSavedProgress();
+ 
+ 
+  isReviewMode = false;
+ 
+  currentQuestions =
+    [...baseQuestions];
+ 
+  wrongList = [];
+ 
+  currentIndex = 0;
+ 
+  correctCount = 0;
+ 
+  answeredSet.clear();
+ 
+ 
+  document.getElementById(
+    "quiz-area"
+  ).style.display =
+    "block";
+ 
+ 
+  document.getElementById(
+    "clear-area"
+  ).style.display =
+    "none";
+ 
+ 
+  loadQuestion(0);
+ 
+}
+ 
+ 
+/* =========================================================
+   保存データ削除
+========================================================= */
+ 
+function clearSavedProgress() {
+ 
+  localStorage.removeItem(
+    "mermaid_island_current_idx"
+  );
+ 
+  localStorage.removeItem(
+    "mermaid_island_correct_cnt"
+  );
+ 
+  localStorage.removeItem(
+    "mermaid_island_wrong_list"
+  );
+ 
+  localStorage.removeItem(
+    "mermaid_island_is_review"
+  );
+ 
+}
+ 
+ 
+/* =========================================================
+   JSONデータ読み込み
+========================================================= */
+ 
+function loadCustomData() {
+ 
+  const input =
+    document.getElementById(
+      "json-input"
+    ).value;
+ 
+ 
+  try {
+ 
+    const data =
+      JSON.parse(input);
+ 
+ 
+    if (
+      !Array.isArray(data) ||
+      data.length === 0
+    ) {
+ 
+      throw new Error();
+ 
+    }
+ 
+ 
+    baseQuestions = data;
+ 
+ 
+    localStorage.setItem(
+      "mermaid_island_boki_data",
+      JSON.stringify(data)
+    );
+ 
+ 
+    clearSavedProgress();
+ 
+ 
+    localStorage.removeItem(
+      "mermaid_island_master_completed"
+    );
+ 
+ 
+    alert(
+      "🏝️ 新しい島の試練を発見しました！"
+    );
+ 
+ 
+    startFreshQuiz();
+ 
+ 
+  } catch (e) {
+ 
+    alert(
+      "🫧 JSONの書式が正しくありません。"
+    );
+ 
+  }
+ 
+}
+ 
+ 
+/* =========================================================
+   起動
+========================================================= */
+ 
+window.onload = init;
+ 
+</script>
+ 
+</body>
+</html>
