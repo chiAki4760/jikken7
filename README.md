@@ -43,7 +43,7 @@
 【骨格コード】この下は変更しないでください
 
 
----html
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -209,5 +209,5 @@
       border: 1px solid #fca5a5;
       border-radius: 6px;
       color: #b91c1c;
----
+```
 
