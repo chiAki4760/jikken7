@@ -41,6 +41,8 @@
 
 
 【骨格コード】この下は変更しないでください
+
+
 ---html
 <!DOCTYPE html>
 <html lang="ja">
