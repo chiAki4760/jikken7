@@ -38,8 +38,10 @@
 2. アプリ名（#app-title）、ロゴ絵文字（#app-logo）、判定ボタン（#submit-btn）の文言を世界観にマッチしたものに変えること（例: 「詠唱する」「打鍵する」「ハッキングする」など）。
 3. 正解時に舞い上がる絵文字配列（RISING_EFFECT_SYMBOLS）を、世界観を象徴する絵文字に差し替えること。
 4. HTMLの基本構造（入力フォームや判定ロジック、JSON読み込み機能）は壊さず維持すること。
-【骨格コード】この下は変更しないでください
 
+
+【骨格コード】この下は変更しないでください
+---html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -205,5 +207,5 @@
       border: 1px solid #fca5a5;
       border-radius: 6px;
       color: #b91c1c;
-
+---
 
