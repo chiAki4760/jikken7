@@ -876,6 +876,12 @@ function loadQuestion(index) {
  const percent = Math.round(((index + 1) / currentQuestions.length) * 100);
  document.getElementById("progress-fill").style.width = percent + "%";
  document.getElementById("progress-text").textContent = `PACKET ${index + 1} / ${currentQuestions.length} (${percent}%)`;
+ setTimeout(() => {
+    const firstInput = document.querySelector("#debit-rows input[type='text']");
+    if (firstInput) {
+      firstInput.focus();
+    }
+  }, 50);
 }
 
 function getEntries(side) {
@@ -1041,6 +1047,32 @@ function loadCustomData() {
 }
 
 window.addEventListener("DOMContentLoaded", init);
+ // ★【追加】左右矢印キー（← / →）での問題移動ショートカット
+window.addEventListener("keydown", (e) => {
+  // 入力欄（input / textarea）にフォーカスがある時は文字移動を邪魔しないようにスキップ
+  const activeEl = document.activeElement;
+  const isTyping = activeEl && (activeEl.tagName === "INPUT" || activeEl.tagName === "TEXTAREA");
+
+  // クイズ画面が表示されている時のみ動作
+  const quizArea = document.getElementById("quiz-area");
+  if (!quizArea || quizArea.style.display === "none") return;
+
+  // → キーで次の問題へ（文字入力中は Alt/Option または Ctrl と同時押し、または入力欄外の時）
+  if (e.key === "ArrowRight") {
+    // 入力欄にいる場合は「Alt + →」または「Ctrl + →」で移動可能にする
+    if (!isTyping || e.altKey || e.ctrlKey) {
+      e.preventDefault();
+      nextQuestion();
+    }
+  } 
+  // ← キーで前の問題へ
+  else if (e.key === "ArrowLeft") {
+    if (!isTyping || e.altKey || e.ctrlKey) {
+      e.preventDefault();
+      prevQuestion();
+    }
+  }
+});
 </script>
 </body>
 </html>
